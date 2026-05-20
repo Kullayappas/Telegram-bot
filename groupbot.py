@@ -30,11 +30,6 @@ SUPPORT_GROUP_ID = -1003820245087
 # ADMIN USER ID
 ADMIN_ID = 8519622120
 
-# VEHICLE API
-VEHICLE_API = "YOUR_VEHICLE_API"
-
-# VEHICLE API KEY
-VEHICLE_API_KEY = "YOUR_VEHICLE_API_KEY"
 
 # AADHAR API
 AADHAR_API = "YOUR_AADHAR_API"
@@ -60,7 +55,9 @@ async def check_join(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = InlineKeyboardMarkup(keyboard)
 
         await update.message.reply_text(
-            "❌ Bot works only in support group.",
+            "⚠️This Bot is Only Group🔒\n\n"
+        "👇Click The Link And Join Our Group🔥\n\n"
+        "• Use Our Service For Free💪 \n\n",
             reply_markup=reply_markup
         )
 
@@ -97,7 +94,9 @@ async def check_join(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup = InlineKeyboardMarkup(keyboard)
 
             await update.message.reply_text(
-                "❌ Join our channel first to use this bot.",
+                "**🔒ACESS DENIED ⚠️**\n\n"
+           "📌you Must Join In our channel to use our commands\n\n"                         "👇click Bellow Join Channel🔑\n\n"
+           "After Joining Channel /start The bot and Use our Service❤️\n\n.",
                 reply_markup=reply_markup
             )
 
@@ -124,14 +123,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 AVAILABLE COMMANDS:
 
 /help
-/num <number>
-/vehicle <vehicle_number>
-/aadhar <aadhar_number>
+/num <number> Number Intelligence 
+/aadhar <aadhar_number> Aadhar Intelligence
 
 EXAMPLES:
 
 /num 9876543210
-/vehicle AP09AB1234
 /aadhar 123412341234
 """
 
@@ -152,9 +149,8 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = """
 📌 AVAILABLE COMMANDS
 
-/num <number>
-/vehicle <vehicle_number>
-/aadhar <aadhar_number>
+/num <number> Number Intelligence 
+/aadhar <aadhar_number> Aadhar Intelligence 
 
 ADMIN COMMANDS:
 
@@ -239,18 +235,14 @@ async def num(update: Update, context: ContextTypes.DEFAULT_TYPE):
 🔎 Result {count}
 
 👤 Name: {item.get('name', 'N/A')}
-
 👨 Father: {item.get('fname', 'N/A')}
-
 📞 Alt: {item.get('alt', 'N/A')}
-
 🪪 Aadhar: {item.get('id', 'N/A')}
 
 📌 Address:
 {item.get('address', 'N/A')}
 
 📡 Circle: {item.get('circle', 'N/A')}
-
 📧 Email: {item.get('email', 'N/A')}
 """
 
@@ -262,115 +254,6 @@ async def num(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await update.message.reply_text(
             f"❌ Number data not found.\n\n{e}"
-        )
-
-# ============================================
-# VEHICLE COMMAND
-# ============================================
-
-async def vehicle(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    joined = await check_join(update, context)
-
-    if not joined:
-        return
-
-    if len(context.args) == 0:
-
-        await update.message.reply_text(
-            "❌ Usage:\n/vehicle AP09AB1234"
-        )
-
-        return
-
-    vehicle_number = context.args[0].upper()
-
-    url = f"{VEHICLE_API}?key={VEHICLE_API_KEY}&vehicle={vehicle_number}"
-
-    try:
-
-        response = requests.get(url)
-
-        if response.status_code != 200:
-
-            await update.message.reply_text(
-                "❌ Vehicle data not found."
-            )
-
-            return
-
-        try:
-
-            data = response.json()
-
-        except:
-
-            await update.message.reply_text(
-                "❌ Vehicle data not found."
-            )
-
-            return
-
-        text = str(data)
-
-        if (
-            "invalid api key" in text.lower()
-            or "not found" in text.lower()
-            or "false" in text.lower()
-        ):
-
-            await update.message.reply_text(
-                "❌ Vehicle data not found."
-            )
-
-            return
-
-        # VEHICLE FORMAT
-        result = f"""
-🚗 VEHICLE DETAILS
-
-👤 Owner Name: {data.get('owner_name', 'N/A')}
-👨 Father Name: {data.get('father_name', 'N/A')}
-🔢 Registration No: {data.get('registration_no', vehicle_number)}
-🏢 RTO: {data.get('rto', 'N/A')}
-💰 Financier: {data.get('financier', 'N/A')}
-
-📱 Mobile Number: {data.get('mobile', 'N/A')}
-
-━━━━━━━━━━━━━━━
-🚘 Vehicle Info
-
-Model: {data.get('model', 'N/A')}
-Vehicle Class: {data.get('vehicle_class', 'N/A')}
-Fuel Type: {data.get('fuel_type', 'N/A')}
-
-━━━━━━━━━━━━━━━
-📅 Dates
-
-Registration Date: {data.get('registration_date', 'N/A')}
-Vehicle Age: {data.get('vehicle_age', 'N/A')}
-Fitness Upto: {data.get('fitness_upto', 'N/A')}
-Tax Upto: {data.get('tax_upto', 'N/A')}
-
-━━━━━━━━━━━━━━━
-📊 Other Info
-
-Cubic Capacity: {data.get('cubic_capacity', 'N/A')}
-Seating Capacity: {data.get('seating_capacity', 'N/A')}
-"""
-
-        # HIDE API OWNER USERNAME
-        result = result.replace(
-            "@Kon_Hu_Mai",
-            "@wingteamowner"
-        )
-
-        await update.message.reply_text(result)
-
-    except Exception:
-
-        await update.message.reply_text(
-            "❌ Vehicle data not found."
         )
 
 
@@ -522,7 +405,6 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CommandHandler("num", num))
-    app.add_handler(CommandHandler("vehicle", vehicle))
     app.add_handler(CommandHandler("aadhar", aadhar))
 
     # ADMIN COMMANDS
