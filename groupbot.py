@@ -16,19 +16,19 @@ import requests
 # BOT CONFIG
 # ============================================
 
-BOT_TOKEN = "YOUR_BOT_TOKEN"
+BOT_TOKEN = "8801949889:AAF71zkfUnH1ZiHYGyZTzHAKfQwagT7lDdA"
 
 # CHANNEL USERNAME
-CHANNEL_USERNAME = "@yourchannelusername"
+CHANNEL_USERNAME = "@wingcodepartnerofficial"
 
 # SUPPORT GROUP LINK
-GROUP_LINK = "https://t.me/yourgroup"
+GROUP_LINK = "https://t.me/numberrinformation"
 
 # SUPPORT GROUP ID
-SUPPORT_GROUP_ID = -1001234567890
+SUPPORT_GROUP_ID = -1003820245087
 
 # ADMIN USER ID
-ADMIN_ID = 123456789
+ADMIN_ID = 8519622120
 
 # VEHICLE API
 VEHICLE_API = "YOUR_VEHICLE_API"
